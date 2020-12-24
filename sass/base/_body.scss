@@ -1,0 +1,49 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: radial-gradient(
+    circle,
+    rgba(184, 184, 39, 0.4014648095566351) 0%,
+    rgba(70, 209, 252, 0.8608485630580357) 17%
+  );
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: 6px 7px 5px -2px rgba(0, 0, 0, 0.45);
+}
+
+.task {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#validation-input {
+  border: 3px solid #bdbdbd;
+}
+
+#validation-input.valid {
+  border-color: #4caf50;
+}
+
+#validation-input.invalid {
+  border-color: #f44336;
+}

@@ -73,10 +73,10 @@ function viewingGallery(event) {
 
 function viewingGalleryRight(event) {
   indexImg = indexImg === images.length - 1 ? 0 : (indexImg += 1);
-  images.map(element => (isLargeImg.src = element[indexImg].original));
+  isLargeImg.src = images[indexImg].original;
 }
 
 function viewingGalleryLeft(event) {
   indexImg = indexImg === 0 ? images.length - 1 : (indexImg -= 1);
-  images.map(element => (isLargeImg.src = element[indexImg].original));
+  isLargeImg.src = images[indexImg].original;
 }

@@ -73,16 +73,18 @@ function viewingGallery(event) {
 
 function viewingGalleryRight(event) {
   indexImg = indexImg === images.length - 1 ? 0 : (indexImg += 1);
-  let nextImg = event.currentTarget.querySelector(
-    `img[data-index='${indexImg}']`,
-  );
-  isLargeImg.src = nextImg.dataset.source;
+  images.map((element, index) => {
+    if (index === indexImg) {
+      isLargeImg.src = element.original;
+    }
+  });
 }
 
 function viewingGalleryLeft(event) {
   indexImg = indexImg === 0 ? images.length - 1 : (indexImg -= 1);
-  let nextImg = event.currentTarget.querySelector(
-    `img[data-index='${indexImg}']`,
-  );
-  isLargeImg.src = nextImg.dataset.source;
+  images.map((element, index) => {
+    if (index === indexImg) {
+      isLargeImg.src = element.original;
+    }
+  });
 }

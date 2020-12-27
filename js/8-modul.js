@@ -10,9 +10,7 @@ const isLargeImg = document.querySelector('.lightbox__image');
 let indexImg;
 
 gallaryImg.addEventListener('click', getBigImg);
-gallaryImg.addEventListener('keydown', viewingGalleryRight);
-gallaryImg.addEventListener('keydown', viewingGalleryLeft);
-gallaryImg.addEventListener('keydown', closeGalleryEsc);
+gallaryImg.addEventListener('keydown', viewingGallery);
 btnCloseModal.addEventListener('click', hiddenModal);
 isModalGallary.addEventListener('click', closeGalleryClickModal);
 
@@ -53,34 +51,38 @@ function hiddenModal() {
   isLargeImg.src = '';
 }
 
-function closeGalleryEsc(event) {
-  if (event.code === 'Escape') {
-    hiddenModal();
-  }
-}
-
 function closeGalleryClickModal(event) {
   if (event.target.nodeName !== 'IMG') {
     hiddenModal();
   }
 }
 
-function viewingGalleryRight(event) {
+function viewingGallery(event) {
   if (event.code === 'ArrowRight') {
-    indexImg === images.length - 1 ? (indexImg = 0) : (indexImg += 1);
-    let nextImg = event.currentTarget.querySelector(
-      `img[data-index='${indexImg}']`,
-    );
-    isLargeImg.src = nextImg.dataset.source;
+    viewingGalleryRight(event);
+  }
+
+  if (event.code === 'ArrowLeft') {
+    viewingGalleryLeft(event);
+  }
+
+  if (event.code === 'Escape') {
+    hiddenModal();
   }
 }
 
+function viewingGalleryRight(event) {
+  indexImg = indexImg === images.length - 1 ? 0 : (indexImg += 1);
+  let nextImg = event.currentTarget.querySelector(
+    `img[data-index='${indexImg}']`,
+  );
+  isLargeImg.src = nextImg.dataset.source;
+}
+
 function viewingGalleryLeft(event) {
-  if (event.code === 'ArrowLeft') {
-    indexImg === 0 ? (indexImg = images.length - 1) : (indexImg -= 1);
-    let nextImg = event.currentTarget.querySelector(
-      `img[data-index='${indexImg}']`,
-    );
-    isLargeImg.src = nextImg.dataset.source;
-  }
+  indexImg = indexImg === 0 ? images.length - 1 : (indexImg -= 1);
+  let nextImg = event.currentTarget.querySelector(
+    `img[data-index='${indexImg}']`,
+  );
+  isLargeImg.src = nextImg.dataset.source;
 }

@@ -12,7 +12,9 @@ let indexImg;
 gallaryImg.addEventListener('click', getBigImg);
 gallaryImg.addEventListener('keydown', viewingGalleryRight);
 gallaryImg.addEventListener('keydown', viewingGalleryLeft);
+gallaryImg.addEventListener('keydown', closeGalleryEsc);
 btnCloseModal.addEventListener('click', hiddenModal);
+isModalGallary.addEventListener('click', closeGalleryClickModal);
 
 images.forEach((element, index) => {
   const imgLi = document.createElement('li');
@@ -51,6 +53,18 @@ function hiddenModal() {
   isLargeImg.src = '';
 }
 
+function closeGalleryEsc(event) {
+  if (event.code === 'Escape') {
+    hiddenModal();
+  }
+}
+
+function closeGalleryClickModal(event) {
+  if (event.target.nodeName !== 'IMG') {
+    hiddenModal();
+  }
+}
+
 function viewingGalleryRight(event) {
   if (event.code === 'ArrowRight') {
     indexImg === images.length - 1 ? (indexImg = 0) : (indexImg += 1);
@@ -70,3 +84,7 @@ function viewingGalleryLeft(event) {
     isLargeImg.src = nextImg.dataset.source;
   }
 }
+
+// window.addEventListener('keydown', event => {
+//   console.log(event.code);
+// });

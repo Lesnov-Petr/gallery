@@ -7,9 +7,11 @@ const btnCloseModal = document.querySelector(
   'button[data-action="close-lightbox"]',
 );
 const isLargeImg = document.querySelector('.lightbox__image');
+let indexImg;
 
 gallaryImg.addEventListener('click', getBigImg);
-gallaryImg.addEventListener('keydown', viewingGallery);
+gallaryImg.addEventListener('keydown', viewingGalleryRight);
+gallaryImg.addEventListener('keydown', viewingGalleryLeft);
 btnCloseModal.addEventListener('click', hiddenModal);
 
 images.forEach((element, index) => {
@@ -17,7 +19,7 @@ images.forEach((element, index) => {
   imgLi.classList = 'gallery__item';
   imgLi.insertAdjacentHTML(
     'beforeend',
-    `<a class='gallery__link' href='${element.original}' data-index='${index}'><img src='${element.preview}' alt='${element.description}' data-source='${element.original}' class='gallery__image' ></img></a>`,
+    `<a class='gallery__link' href='${element.original}'><img src='${element.preview}' alt='${element.description}' data-source='${element.original}' class='gallery__image' data-index='${index}'></img></a>`,
   );
   arrayImg.push(imgLi);
 });
@@ -33,6 +35,8 @@ function getBigImg(event) {
     return;
   }
 
+  indexImg = Number(activImg.dataset.index);
+
   getModal(activImg);
 
   isLargeImg.src = activImg.dataset.source;
@@ -47,22 +51,22 @@ function hiddenModal() {
   isLargeImg.src = '';
 }
 
-function viewingGallery(event) {
-  const activImg = event.target;
-  const currentIndex = activImg.dataset.index;
+function viewingGalleryRight(event) {
   if (event.code === 'ArrowRight') {
-    let nextIndex = Number(currentIndex) + 1;
-    const nextImg = event.currentTarget.querySelector(
-      `a[data-index='${nextIndex}']`,
+    indexImg === images.length - 1 ? (indexImg = 0) : (indexImg += 1);
+    let nextImg = event.currentTarget.querySelector(
+      `img[data-index='${indexImg}']`,
     );
-
-    isLargeImg.src = nextImg.href;
+    isLargeImg.src = nextImg.dataset.source;
   }
+}
+
+function viewingGalleryLeft(event) {
   if (event.code === 'ArrowLeft') {
-    let nextIndex = Number(currentIndex) - 1;
-    const nextImg = event.currentTarget.querySelector(
-      `a[data-index='${nextIndex}']`,
+    indexImg === 0 ? (indexImg = images.length - 1) : (indexImg -= 1);
+    let nextImg = event.currentTarget.querySelector(
+      `img[data-index='${indexImg}']`,
     );
-    isLargeImg.src = nextImg.href;
+    isLargeImg.src = nextImg.dataset.source;
   }
 }

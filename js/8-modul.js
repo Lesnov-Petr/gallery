@@ -84,7 +84,3 @@ function viewingGalleryLeft(event) {
     isLargeImg.src = nextImg.dataset.source;
   }
 }
-
-// window.addEventListener('keydown', event => {
-//   console.log(event.code);
-// });
